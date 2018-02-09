@@ -58,5 +58,5 @@ TELA 3 - CADASTRO DE TAREFAS
 BANCO DE DADOS
 --
 
-![DER](http://192.168.11.108/JAVA/treinamentos_testes/treinamento_jsf_1/raw/080a6c6cc4c0d19ef76a5da7c914538a1def0d38/der_dbtreinamento.png)
+![DER](https://raw.githubusercontent.com/plannersistemas/selecao_jsf_1/master/der_dbtreinamento.png)
    
