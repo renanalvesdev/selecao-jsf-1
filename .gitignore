@@ -1,4 +1,4 @@
-./idea
+/.idea
 /target/
 *.pydevproject
 .metadata
@@ -12,6 +12,9 @@ tmp/
 local.properties
 .settings/
 .loadpath
+.iml
+/.idea
+*.iml
 
 # Eclipse Core
 .project
