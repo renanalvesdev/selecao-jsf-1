@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="usuario")
@@ -20,6 +21,15 @@ public class Usuario {
 	
 	private String login;
 	
+	@Transient
+	private String repeteSenha;
+	
+	public String getRepeteSenha() {
+		return repeteSenha;
+	}
+	public void setRepeteSenha(String repeteSenha) {
+		this.repeteSenha = repeteSenha;
+	}
 	public String getUsuario() {
 		return usuario;
 	}
@@ -38,5 +48,13 @@ public class Usuario {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 	
 }

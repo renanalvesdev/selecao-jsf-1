@@ -6,21 +6,87 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-	<ui:composition template="_template.xhtml">
+<head>
+<h:outputStylesheet library="css" name="estilo.css" />
+</head>
 
-		<ui:define name="titulo">
-				<p:outputPanel>Login</p:outputPanel>
-		</ui:define>
+<ui:composition template="_template.xhtml">
 
-		<ui:define name="conteudo">
-		
-			<p:messages globalOnly="true" />
-		
+	<ui:define name="titulo">
+		<p:outputPanel>Login</p:outputPanel>
+	</ui:define>
+
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:event listener="#{loginBean.init}" type="preRenderView" />
+		</f:metadata>
+		<p:messages globalOnly="true" />
+		<div
+			style="width: 800px; margin: 0 auto; align-items: center; display: flex; justify-content: center;">
 			<h:form id="login">
-				<p:outputLabel value="#{loginBean.title}" />
-			</h:form>
-		</ui:define>
+				<p:messages autoUpdate="true" for="msgFora" />
+				<div align="center">
+					<h:outputText value="LOGIN - SELECAO PLANNER - JSF"
+						style="font-weight: bold" />
+				</div>
+				<p:panelGrid columns="2" style="margin-top:20px">
+					<p:outputLabel value="Usuário" />
+					<p:inputText placeholder="Seu usuário" required="true"
+						value="#{loginBean.usuario.login}" />
 
-	</ui:composition>
+					<p:outputLabel value="Senha: " />
+					<p:password placeholder="Sua senha" required="true"
+						value="#{loginBean.usuario.senha}" />
+
+					<h:panelGroup />
+					<p:panelGrid columns="2">
+						<p:commandButton value="Entrar" action="#{loginBean.login}"
+							process="@form" update="@form" />
+
+						<p:commandButton
+							action="#{cadastroUsuarioBean.abrirModalCadastro}" 
+							onclick="PF('novoUsuarioDlg').show(); return false"
+							value=" + Cadastre-se" />
+					</p:panelGrid>
+
+				</p:panelGrid>
+			</h:form>
+			<h:form>
+				<p:dialog header="Novo Usário" widgetVar="novoUsuarioDlg"
+					modal="true" resizable="false" draggable="false">
+					<h:form id="form_cadastro">
+						<p:messages autoUpdate="true" for="msg" id="msg" />
+						<h:panelGroup>
+							<h:panelGrid columns="2">
+								<p:outputLabel value="Nome: " />
+								<p:inputText placeholder="ex: Renan da Silva Alves"
+									required="true" value="#{cadastroUsuarioBean.usuario.usuario}" />
+
+								<p:outputLabel value="Login:" />
+								<p:inputText placeholder="ex: renan.alves" required="true"
+									value="#{cadastroUsuarioBean.usuario.login}" />
+
+								<p:outputLabel value="Senha:" />
+								<p:password required="true"
+									value="#{cadastroUsuarioBean.usuario.senha}" />
+
+								<h:panelGroup />
+								<p:commandButton value="Cadastrar"
+									actionListener="#{cadastroUsuarioBean.salvar}">
+									<p:ajax update="form_cadastro, msg" process="form_cadastro" />
+								</p:commandButton>
+							</h:panelGrid>
+
+						</h:panelGroup>
+					</h:form>
+				</p:dialog>
+			</h:form>
+
+
+		</div>
+	</ui:define>
+
+</ui:composition>
 
 </html>

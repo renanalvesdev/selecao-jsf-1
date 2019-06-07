@@ -21,11 +21,11 @@
 	</servlet-mapping>
 	
 	<!-- Ativando tema do primefaces -->
-	<context-param>
+	<!-- <context-param>
 		<param-name>primefaces.THEME</param-name>
 		<param-value>south-street</param-value>
 	</context-param>
-	
+	 -->
 	<!-- Dependência do CDI -->
 	<resource-env-ref>
 		<resource-env-ref-name>BeanManager</resource-env-ref-name>

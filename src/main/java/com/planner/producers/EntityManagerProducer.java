@@ -1,4 +1,4 @@
-package com.producers;
+package com.planner.producers;
 
 import java.io.Serializable;
 
@@ -16,19 +16,19 @@ public class EntityManagerProducer implements Serializable {
     @Produces
     @ApplicationScoped
     public EntityManagerFactory entityManagerFactoryMySQL() {
-	return Persistence.createEntityManagerFactory("default");
+	return Persistence.createEntityManagerFactory("selecaoPlanner");
     }
 
     /**
      * 
      */
     private static final long serialVersionUID = -7940309802233350557L;
-    @PersistenceContext(unitName = "default")
+    @PersistenceContext(unitName = "selecaoPlanner")
     private EntityManager entityManager;
 
     @Produces
     @RequestScoped
-    protected EntityManager createEntityManager(EntityManagerFactory entityManagerFactory) {
+    public EntityManager createEntityManager(EntityManagerFactory entityManagerFactory) {
 	return entityManagerFactory.createEntityManager();
     }
 

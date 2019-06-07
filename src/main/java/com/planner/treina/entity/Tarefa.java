@@ -1,6 +1,7 @@
 package com.planner.treina.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="tarefa")
-public class Tarefas implements Serializable{
+public class Tarefa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,11 +22,19 @@ public class Tarefas implements Serializable{
 	private Integer id;
 	private String titulo;
 	private String descricao;
+	private Date dataCriacao;
 
 	@ManyToOne
 	@JoinColumn(name="id_usuario")
 	private Usuario usuario;
 
+	
+	public Date getDataCriacao() {
+		return dataCriacao;
+	}
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
 	public Integer getId() {
 		return id;
 	}

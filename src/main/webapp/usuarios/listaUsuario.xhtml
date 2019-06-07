@@ -1,0 +1,88 @@
+<ui:composition template="../_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+	<h:head></h:head>
+	<ui:define name="cabecalho">
+
+		<div align="center">
+			<p:panelGrid columns="1">
+				<h:outputText value="TELA 1 - LISTA DE USUÁRIOS" />
+				<p:panelGrid>
+					<p:panelGrid>
+						Bem vindo,
+				</p:panelGrid>
+					<h:outputText style="font-weight: bold"
+						value="#{loginBean.usuario.usuario}" />
+				</p:panelGrid>
+			</p:panelGrid>
+		</div>
+
+		<h:form style="margin-top: 20px">
+			<p:menubar>
+				<p:submenu label="Telas">
+					<p:menuitem value="Tela 1" />
+					<p:menuitem value="Tela 2" outcome="/tarefas/listaTarefas" />
+				</p:submenu>
+			</p:menubar>
+		</h:form>
+
+
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<p:messages autoUpdate="true" for="msgFora" />
+		<h:form id="form" prependId="false">
+			<div>
+				<p:commandButton value="Alterar senha" update="@form"
+					action="#{pesquisaUsuarioBean.abreModalSenha}" />
+				<p:commandButton update="tabela" value="Listar Usuarios"
+					action="#{pesquisaUsuarioBean.pesquisar}" />
+				<p:dataTable value="#{pesquisaUsuarioBean.usuariosFiltrados}"
+					var="usuario" id="tabela">
+					<p:column headerText="Nome">
+						<h:outputText value="#{usuario.usuario}" />
+					</p:column>
+					<p:column headerText="Usuário">
+						<h:outputText value="#{usuario.login}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+
+		<h:form >
+			<p:dialog header="Alteracao de senha" widgetVar="novaSenhaDlg"
+				modal="true" resizable="false" draggable="false" id="teste">
+				<p:messages autoUpdate="true" for="msg" />
+				<h:form id="form_nova_senha">
+					<h:panelGroup>
+						<p:messages />
+						<h:panelGrid columns="2" id="camposSenha">
+							<p:outputLabel value="Senha atual: " />
+							<p:password required="true" requiredMessage="Campo obrigatorio !"
+								value="#{pesquisaUsuarioBean.senhaAtual}" />
+
+							<p:outputLabel value="Nova senha:" />
+							<p:password required="true" requiredMessage="Campo obrigatorio !"
+								value="#{pesquisaUsuarioBean.novaSenha}" />
+
+							<h:panelGroup />
+							<p:commandButton value="Alterar" 
+								action="#{pesquisaUsuarioBean.alterarSenha(loginBean.usuario)}">
+								<p:ajax update="form_nova_senha, camposSenha" process="form_nova_senha" />
+							</p:commandButton>
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:form>
+			</p:dialog>
+		</h:form>
+
+	</ui:define>
+
+
+
+
+</ui:composition>

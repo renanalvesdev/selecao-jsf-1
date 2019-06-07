@@ -1,0 +1,81 @@
+<ui:composition template="../_template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+
+	<ui:define name="cabecalho">
+		<div align="center">
+			<p:panelGrid columns="1">
+				<h:outputText value="TELA 2 - LISTA DE TAREFAS" />
+				<p:panelGrid>
+					<h:outputText value="Bem vindo, " />
+					<h:outputText style="font-weight: bold"
+						value="#{loginBean.usuario.usuario}" />
+				</p:panelGrid>
+			</p:panelGrid>
+		</div>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<p:messages autoUpdate="true" for="msgFora" />
+		<h:form id="form" prependId="false">
+			<div>
+				<p:panelGrid columns="2">
+					<p:commandButton update="tabela"
+						value=" + Nova Tarefa"  action="#{cadastroTarefaBean.novaTarefa}" />
+					<p:commandButton icon="fa fa-check" value="Atualizar Lista"
+						update="tabela"
+						action="#{pesquisaTarefaBean.pesquisar(loginBean.usuario)}" />
+				</p:panelGrid>
+
+				<p:dataTable value="#{pesquisaTarefaBean.tarefasFiltrados}"
+					var="tarefa" id="tabela">
+					<p:column headerText="Titulo">
+						<h:outputText value="#{tarefa.titulo}" />
+					</p:column>
+					<p:column headerText="Descricao">
+						<h:outputText value="#{tarefa.descricao}" />
+					</p:column>
+					<p:column headerText="Data de cadastro">
+						<div align="center">
+							<h:outputText value="#{tarefa.dataCriacao}">
+								<f:convertDateTime pattern="dd/MMMM/yyyy 'as' HH:mm" />
+							</h:outputText>
+						</div>
+					</p:column>
+				</p:dataTable>
+			</div>
+		</h:form>
+
+		<h:form id="formNovaTarefa">
+			<p:dialog header="Nova Tarefa" widgetVar="novaTarefaDlg"
+				modal="true" resizable="false" draggable="false" id="novaTarefa">
+					<p:messages autoUpdate="true" for="msg" />
+					<h:panelGroup>
+						<p:messages />
+						<h:panelGrid columns="2">
+							<p:outputLabel value="Titulo: " />
+							<p:inputText placeholder="ex: Implementar regras de negocios"
+								required="true" requiredMessage="Campo obrigatorio !"
+								value="#{cadastroTarefaBean.tarefa.titulo}" />
+
+							<p:outputLabel value="Descricao:" />
+							<p:inputText required="true"
+								placeholder="ex: permitir navegacao a partir de autenticacao"
+								value="#{cadastroTarefaBean.tarefa.descricao}" />
+
+							<h:panelGroup />
+							<p:commandButton value="Cadastrar"
+								actionListener="#{cadastroTarefaBean.salvar(loginBean.usuario)}">
+								<p:ajax update="formNovaTarefa" process="formNovaTarefa" />
+							</p:commandButton>
+						</h:panelGrid>
+					</h:panelGroup>
+			</p:dialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
